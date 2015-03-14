@@ -15,6 +15,7 @@ all:
 	menhir --coq Parser.vy
 	coqc -I validator ${VAL_FILES}
 	coqc -I . -I validator Parser.v
+	coqc -I . -I validator Datatypes.v
 	coqc -I . -I validator Extract.v
 	ocamlc -c Specif.mli
 	ocamlc -c Specif.ml
@@ -25,7 +26,26 @@ all:
 	ocamlc -c Parser.ml
 	ocamlc -c Main.mli
 	ocamlc -c Main.ml
-	ocamlc -I . -I validator -c run.ml
+	ocamlc -I . -c run.ml
+	ocamlc Lexer.cmo Parser.cmo run.cmo
+
+incr:
+	ocamllex Lexer.mll
+	menhir --coq Parser.vy
+	#coqc -I validator ${VAL_FILES}
+	coqc -I . -I validator Parser.v
+	coqc -I . -I validator Datatypes.v
+	coqc -I . -I validator Extract.v
+	#ocamlc -c Specif.mli
+	#ocamlc -c Specif.ml
+	#ocamlc -c Streams.mli
+	#ocamlc -c Streams.ml
+	ocamlc -c Parser.mli
+	ocamlc -c Lexer.ml
+	ocamlc -c Parser.ml
+	ocamlc -c Main.mli
+	ocamlc -c Main.ml
+	ocamlc -I . -c run.ml
 	ocamlc Lexer.cmo Parser.cmo run.cmo
 
 clean:

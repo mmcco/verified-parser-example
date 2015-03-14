@@ -26,12 +26,14 @@ rule lex = parse
 | eof
     { tok EOF't (Obj.magic ()) }
 
+    (*
 {
     let tokens_stream lexbuf : token stream =
         let rec compute_token_stream () =
             let loop c_exist =
-                Cons0 (Obj.magic c_exist, Lazy.from_fun compute_token_stream)
+                Cons0 (c_exist, Lazy.from_fun compute_token_stream)
             in loop (lex lexbuf)
         in
         Lazy.from_fun compute_token_stream
 }
+*)
