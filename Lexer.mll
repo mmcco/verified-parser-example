@@ -7,7 +7,7 @@
     open Streams
 
     let tok v t =
-        Coq_existT (t, Obj.magic v)
+        Coq_existT (t, v)
 }
 
 let letters = ['a' - 'z']+
@@ -18,19 +18,19 @@ let newline = '\n'
 
 rule lex = parse
 | letters as ls
-    { tok OPCODE't ls }
+    { tok OPCODE't (Obj.magic ls) }
 | num as x
-    { tok IMM't (int_of_string x) }
+    { tok IMM't (Obj.magic (int_of_string x)) }
 | whitespace | newline
     { lex lexbuf }
 | eof
-    { tok EOF't () }
+    { tok EOF't (Obj.magic ()) }
 
 {
-    let tokens_stream lexbuf : token coq_Stream =
+    let tokens_stream lexbuf : token stream =
         let rec compute_token_stream () =
             let loop c_exist =
-                Cons (c_exist, Lazy.from_fun compute_token_stream)
+                Cons0 (Obj.magic c_exist, Lazy.from_fun compute_token_stream)
             in loop (lex lexbuf)
         in
         Lazy.from_fun compute_token_stream

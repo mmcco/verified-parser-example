@@ -3,9 +3,11 @@ open Sys
 open Lexing
 open Lexer
 open Main
+open Parser
+open Parser.Inter
 
 let _ =
-    let rec inf = Parser.S inf in
+    let rec inf = S inf in
 
     let cin =
       if Array.length Sys.argv > 1
@@ -13,11 +15,11 @@ let _ =
       else stdin
     in
     let lexbuf = Lexing.from_channel cin in
-    (match Parser.pvals inf (Lexer.tokens_stream lexbuf) with
-        | Parser.Parser.Fail_pr ->
+    (match pvals inf (Lexer.tokens_stream lexbuf) with
+        | Fail_pr ->
                 print_endline "failed!"
-        | Parser.Parser.Timeout_pr ->
+        | Timeout_pr ->
                 print_endline "timed out!"
-        | Parser.Parser.Parsed_pr (output, _) ->
+        | Parsed_pr (output, _) ->
                 print_endline "worked!")
 
