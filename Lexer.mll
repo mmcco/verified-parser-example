@@ -10,8 +10,8 @@
         Coq_existT (t, Obj.magic v)
 }
 
-let letters = ['a' - 'z']
-let num = ['0' - '9']
+let letters = ['a' - 'z']+
+let num = ['0' - '9']+
 let whitespace = [' ' '\t' '\012' '\r']
 let newline = '\n'
 
@@ -20,7 +20,7 @@ rule lex = parse
 | letters as ls
     { tok OPCODE't ls }
 | num as x
-    { tok IMM't x }
+    { tok IMM't (int_of_string x) }
 | whitespace | newline
     { lex lexbuf }
 | eof
