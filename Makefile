@@ -31,4 +31,4 @@ all:
 clean:
 	rm -f *.glob *.cmi *.cmo a.out *.vo Parser.ml Lexer.ml \
 		Parser.v validator/*.vo validator/*.glob Main.ml \
-		Parser.mli Lexer.mli
+		Main.mli Parser.mli Lexer.mli
