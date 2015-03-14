@@ -1,10 +1,13 @@
 {
-  open Lexing
-  open Printf
-  open Specif
-  open Parser
-  open Aut.GramDefs
-  open Streams
+    open Lexing
+    open Printf
+    open Specif
+    open Parser
+    open Aut.GramDefs
+    open Streams
+
+    let tok v t =
+        Coq_existT (t, Obj.magic v)
 }
 
 let letters = ['a' - 'z']
@@ -12,15 +15,16 @@ let num = ['0' - '9']
 let whitespace = [' ' '\t' '\012' '\r']
 let newline = '\n'
 
+
 rule lex = parse
 | letters as ls
-    { Coq_existT (OPCODE't, ls) }
+    { tok OPCODE't ls }
 | num as x
-    { Coq_existT (IMM't, x) }
+    { tok IMM't x }
 | whitespace | newline
     { lex lexbuf }
 | eof
-    { Coq_existT (EOF't, ()) }
+    { tok EOF't () }
 
 {
     let tokens_stream lexbuf : token coq_Stream =
