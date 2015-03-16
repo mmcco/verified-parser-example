@@ -2,7 +2,6 @@ open Array
 open Sys
 open Lexing
 open Lexer
-open Main
 open Parser
 open Parser.Inter
 

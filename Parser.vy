@@ -7,10 +7,13 @@ Inductive value :=
 | Opcode : string -> value
 | Imm : nat -> value.
 
+Definition offset : Type := nat % type.
+Definition imm : Type := nat % type.
+
 %}
 
 %token<string> OPCODE
-%token<nat> IMM
+%token<imm> IMM
 
 %token EOF
 

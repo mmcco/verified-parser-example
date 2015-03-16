@@ -3,11 +3,16 @@
     open Printf
     open Specif
     open Parser
+    (*open Main*)
     open Aut.GramDefs
-    open Streams
+    (*open Streams*)
+    open BatString
+    open String
 
-    let tok v t =
-        Coq_existT (t, v)
+    let rec of_int (n: int) : imm =
+        assert (n >= 0);
+        if n = 0 then O else S (of_int (pred n))
+
 }
 
 let letters = ['a' - 'z']+
@@ -18,22 +23,20 @@ let newline = '\n'
 
 rule lex = parse
 | letters as ls
-    { tok OPCODE't (Obj.magic ls) }
+    { get_token (OPCODE'tok (to_list ls)) }
 | num as x
-    { tok IMM't (Obj.magic (int_of_string x)) }
+    { get_token (IMM'tok (of_int (int_of_string x))) }
 | whitespace | newline
     { lex lexbuf }
 | eof
-    { tok EOF't (Obj.magic ()) }
+    { get_token (EOF'tok ()) }
 
-    (*
 {
     let tokens_stream lexbuf : token stream =
         let rec compute_token_stream () =
             let loop c_exist =
-                Cons0 (c_exist, Lazy.from_fun compute_token_stream)
+                Cons (c_exist, Lazy.from_fun compute_token_stream)
             in loop (lex lexbuf)
         in
         Lazy.from_fun compute_token_stream
 }
-*)
