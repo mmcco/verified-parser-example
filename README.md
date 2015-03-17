@@ -9,7 +9,7 @@ is nonobvious, not standardized, and generally undocumented.
 ## Requirements
 
 * Coq
-* OCaml (with ocamlfind, ocamllex, which should be included)
+* OCaml (with ocamlfind and ocamllex, which should be included)
 * the OCaml Batteries library
 * Menhir
 
