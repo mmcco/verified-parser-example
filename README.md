@@ -13,12 +13,17 @@ is nonobvious, not standardized, and generally undocumented.
 * the OCaml Batteries library
 * Menhir
 
-## On Menhir
+## On the parser
 
-A Coq backend was recently added to Menhir, and is used by
-[CompCert](http://compcert.inria.fr/).  It isn't yet included in the
-documentation, but its section is drafted and will be added soon. CompCert and
+A Coq backend was recently added to Menhir. It originated in and is used by
+[CompCert](http://compcert.inria.fr/). It isn't yet included in the
+Menhir documentation, but its section is drafted and will be added soon. CompCert and
 this repo are the only parsers written with this backend that I'm aware of.
+
+Jacques-Henri Jourdan, the author of the verified parser, has written a
+[blog post](http://gallium.inria.fr/~scherer/gagallium/verifying-a-parser-for-a-c-compiler/index.html)
+and a [journal article](http://gallium.inria.fr/~xleroy/publi/validated-parser.pdf)
+describing it at a conceptual and theoretical level.
 
 ## Notes
 
@@ -30,5 +35,4 @@ This was written as part of Joe Politz's programming languages seminar at
 Swarthmore College. It's an early step in our investigation of verifying
 kernel-level interpreters such as BPF.
 
-Thanks to Jacques-Henri Jourdan, the author of the verified parser, who was
-very open and helpful.
+Thanks to Jacques-Henri Jourdan, who was very open and helpful.
