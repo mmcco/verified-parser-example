@@ -15,7 +15,7 @@ is nonobvious, not standardized, and generally undocumented.
 
 ## On the parser
 
-A Coq backend (using the `--coq` flag) was recently added to Menhir. It
+A Coq backend (using the `--coq` flag) exists in Menhir. It
 originated in and is used by [CompCert](http://compcert.inria.fr/). It isn't
 yet included in the Menhir documentation, but its section is drafted and will
 be added soon.  CompCert and this repo are the only parsers written with this
