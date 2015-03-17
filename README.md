@@ -20,7 +20,7 @@ originated in and is used by [CompCert](http://compcert.inria.fr/). It isn't
 yet included in the Menhir documentation, but its section is drafted and will
 be added soon.  CompCert and this repo are the only parsers written with this
 backend that I'm aware of. CompCert uses a lot of interesting techniques, but
-is very complex because of the pre-parser necessary to deal with some warts in
+is very complex because of the pre-parser necessary to deal with warts in
 C specifications.
 
 Jacques-Henri Jourdan, the author of the verified parser, has written a
