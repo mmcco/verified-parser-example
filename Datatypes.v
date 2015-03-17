@@ -2,9 +2,11 @@ Require Import String.
 Require Import Parser.
 
 Inductive token_inductive :=
-    | EOF'tok : unit -> token_inductive
-    | IMM'tok : nat -> token_inductive
-    | OPCODE'tok : string -> token_inductive.
+    | LPAREN'tok : unit -> token_inductive
+    | RPAREN'tok : unit -> token_inductive
+    | NUM'tok : nat -> token_inductive
+    | OP'tok : string -> token_inductive
+    | EOF'tok : unit -> token_inductive.
 
 (*
     Helper function to make expressions in get_token more readable.
@@ -17,10 +19,14 @@ Definition get_sst (t : Gram.terminal) (sst : Gram.symbol_semantic_type (Gram.T 
 
 Definition get_token (ti : token_inductive) : Aut.GramDefs.token :=
     match ti with
+        | LPAREN'tok u =>
+            get_sst Gram.LPAREN't tt
+        | RPAREN'tok u =>
+            get_sst Gram.RPAREN't tt
+        | NUM'tok n =>
+            get_sst Gram.NUM't n
+        | OP'tok str =>
+            get_sst Gram.OP't str
         | EOF'tok u =>
             get_sst Gram.EOF't tt
-        | IMM'tok n =>
-            get_sst Gram.IMM't n
-        | OPCODE'tok str =>
-            get_sst Gram.OPCODE't str
     end.

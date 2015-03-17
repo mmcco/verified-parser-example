@@ -3,33 +3,37 @@
 Require Import String.
 Require Tuples.
 
-Inductive value :=
-| Opcode : string -> value
-| Imm : nat -> value.
+Inductive ast :=
+| OpExpr : string -> ast -> ast -> ast
+| Num : nat -> ast.
 
-Definition offset : Type := nat % type.
-Definition imm : Type := nat % type.
+Definition num : Type := nat % type.
 
 %}
 
-%token<string> OPCODE
-%token<imm> IMM
+%token<num> NUM
 
-%token EOF
+(*
+    This represents all operators. Giving each
+    operator its own token probably would have
+    been cleaner, but I wanted to include
+    strings in the example.
+*)
+%token<string> OP
 
-%type<value> pval
+%token LPAREN RPAREN EOF
 
-%start<list value> pvals
+%type<ast> expr
+
+%start<ast> top_expr
 %%
 
-pvals:
-| v = pval vs = pvals
-    { v :: vs }
-| v = pval EOF
-    { v :: [] }
+top_expr:
+| e=expr EOF
+    { e }
 
-pval:
-| o = OPCODE
-    { Opcode o }
-| i = IMM
-    { Imm i }
+expr:
+| i=NUM
+    { Num i }
+| LPAREN op=OP e1=expr e2=expr RPAREN
+    { OpExpr op e1 e2 }

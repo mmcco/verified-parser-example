@@ -26,7 +26,6 @@ incr:
 	coqc ${COQ_DIRS} Parser.v
 	coqc ${COQ_DIRS} Datatypes.v
 	coqc ${COQ_DIRS} Extract.v
-	#ocamlc -I . -I datatypes -c datatypes/Camlcoq.ml
 	ocamlc -c Parser.mli
 	ocamlfind ocamlc -package batteries -I includes -c Lexer.ml
 	ocamlc -c Parser.ml

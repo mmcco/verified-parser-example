@@ -14,7 +14,7 @@ let _ =
       else stdin
     in
     let lexbuf = Lexing.from_channel cin in
-    (match pvals inf (Lexer.tokens_stream lexbuf) with
+    (match top_expr inf (Lexer.tokens_stream lexbuf) with
         | Fail_pr ->
                 print_endline "failed!"
         | Timeout_pr ->

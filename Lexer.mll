@@ -9,27 +9,35 @@
     open BatString
     open String
 
-    let rec of_int (n: int) : imm =
+    exception SyntaxError of string
+
+    let rec of_int (n: int) : num =
         assert (n >= 0);
         if n = 0 then O else S (of_int (pred n))
 
 }
 
-let letters = ['a' - 'z']+
 let num = ['0' - '9']+
 let whitespace = [' ' '\t' '\012' '\r']
 let newline = '\n'
+let op = "+" | "-" | "*" | "/" | "**"
 
 
 rule lex = parse
-| letters as ls
-    { get_token (OPCODE'tok (to_list ls)) }
 | num as x
-    { get_token (IMM'tok (of_int (int_of_string x))) }
+    { get_token (NUM'tok (of_int (int_of_string x))) }
 | whitespace | newline
     { lex lexbuf }
+| '('
+    { get_token (LPAREN'tok ()) }
+| ')'
+    { get_token (RPAREN'tok ()) }
+| op as op_str
+    { get_token (OP'tok (to_list op_str)) }
 | eof
     { get_token (EOF'tok ()) }
+| _
+    { raise (SyntaxError ("Unexpected char: " ^ Lexing.lexeme lexbuf)) }
 
 {
     let tokens_stream lexbuf : token stream =
