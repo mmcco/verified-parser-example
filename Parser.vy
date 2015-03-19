@@ -1,7 +1,6 @@
 %{
 
 Require Import String.
-Require Tuples.
 
 Inductive ast :=
 | OpExpr : string -> ast -> ast -> ast
