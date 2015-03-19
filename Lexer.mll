@@ -29,13 +29,13 @@ rule lex = parse
 | whitespace | newline
     { lex lexbuf }
 | '('
-    { get_token (LPAREN'tok ()) }
+    { get_token LPAREN'tok }
 | ')'
-    { get_token (RPAREN'tok ()) }
+    { get_token RPAREN'tok }
 | op as op_str
     { get_token (OP'tok (to_list op_str)) }
 | eof
-    { get_token (EOF'tok ()) }
+    { get_token EOF'tok }
 | _
     { raise (SyntaxError ("Unexpected char: " ^ Lexing.lexeme lexbuf)) }
 

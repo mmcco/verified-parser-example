@@ -3,9 +3,11 @@
 Require Import String.
 
 Inductive ast :=
-| OpExpr : string -> ast -> ast -> ast
-| Num : nat -> ast.
+    | OpExpr : string -> ast -> ast -> ast
+    | Num : nat -> ast.
 
+(* We make a type synonym to differentiate
+   from nat extracted from other files. *)
 Definition num : Type := nat % type.
 
 %}
@@ -28,11 +30,11 @@ Definition num : Type := nat % type.
 %%
 
 top_expr:
-| e=expr EOF
-    { e }
+    | e=expr EOF
+        { e }
 
 expr:
-| i=NUM
-    { Num i }
-| LPAREN op=OP e1=expr e2=expr RPAREN
-    { OpExpr op e1 e2 }
+    | i=NUM
+        { Num i }
+    | LPAREN op=OP e1=expr e2=expr RPAREN
+        { OpExpr op e1 e2 }
